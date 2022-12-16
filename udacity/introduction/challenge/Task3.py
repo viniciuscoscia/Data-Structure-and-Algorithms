@@ -4,13 +4,43 @@ It's ok if you don't understand how to read files.
 """
 import csv
 
-with open('texts.csv', 'r') as f:
-    reader = csv.reader(f)
-    texts = list(reader)
+
+def is_mobile_number(number):
+    return number.startswith("7") or number.startswith("8") or number.startswith("9")
+
 
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
+    codes = set()
+    bangalore_origin_calls = 0
+    bangalore_destination_calls = 0
+
+    for call in calls:
+        caller_number = call[0]
+
+        if not caller_number.startswith("(080)"):
+            continue
+
+        bangalore_origin_calls += 1
+        destination_number = str(call[1])
+
+        if destination_number.startswith("("):
+            prefix = destination_number.split(")")[0].replace("(", "")
+            if prefix == '080':
+                bangalore_destination_calls += 1
+            codes.add(prefix)
+        elif is_mobile_number(destination_number):
+            codes.add(destination_number[0:4])
+
+print("The numbers called by people in Bangalore have codes:")
+print(codes)
+
+calls_percentage = (bangalore_destination_calls * 100) / bangalore_origin_calls
+
+print(
+    f"{round(calls_percentage, 2)} percent of calls from fixed lines in Bangalore are calls to other fixed lines in "
+    f"Bangalore.")
 
 """
 TASK 3:

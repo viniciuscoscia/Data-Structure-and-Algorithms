@@ -36,8 +36,8 @@ with open('calls.csv', 'r') as f:
             number_spent_longest_time = receiving_telephone_number
 
 print(
-    number_spent_longest_time + " spent the longest time, " + str(longest_call_duration_sum)
-    + " seconds, on the phone during September 2016.")
+    f'{number_spent_longest_time} spent the longest time, {longest_call_duration_sum} seconds, on the phone during '
+    f'September 2016.')
 
 """
 TASK 2: Which telephone number spent the longest time on the phone
