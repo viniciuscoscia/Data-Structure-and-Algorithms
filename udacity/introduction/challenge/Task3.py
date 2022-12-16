@@ -17,7 +17,7 @@ with open('calls.csv', 'r') as f:
     bangalore_destination_calls = 0
 
     for call in calls:
-        caller_number = call[0]
+        caller_number = str(call[0])
 
         if not caller_number.startswith("(080)"):
             continue
@@ -34,7 +34,8 @@ with open('calls.csv', 'r') as f:
             codes.add(destination_number[0:4])
 
 print("The numbers called by people in Bangalore have codes:")
-print(codes)
+for code in sorted(codes):
+    print(code)
 
 calls_percentage = (bangalore_destination_calls * 100) / bangalore_origin_calls
 
