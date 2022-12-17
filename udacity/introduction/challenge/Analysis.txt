@@ -1,21 +1,21 @@
 Task 0:
 O(1) - Constant
-It doesn't matter the size of files, we have no loops.
+It doesn't matter the size of the files. We have no loops.
 
 Task 1:
 O(a + b) - Linear
-It grows as much as the calls and texts lists are bigger, as we iterate over all items and add phone numbers to the
-new sets, which is an O(1) operation.
+It grows as much as the calls and texts lists are bigger, as we iterate over all items and add phone numbers to the new sets, which is an O(1) operation.
 
 Task 2:
 O(n) - Linear
 Just a for loop over all calls and simple operations using a dictionary (O(1))
 
 Task 3:
-O(n) - Linear
-Iteration over all calls. The bigger the list, longer the processing time.
-In the end we sort all codes, cheap operation.
+O(n log n)
+Iteration over all calls. The bigger the list, the longer the processing time.
+Ultimately, we sort all codes, which is more costly than iterating.
 
 Task 4:
-O(a + b): Linear
-The bigger the message and call list, longer the processing time as we iterate over both in isolated loops.
+O(n log n)
+The bigger the message and call list, the longer the processing time as we iterate over both in isolated loops.
+Also, we have a "sort" method call at the end of this task, so the bigger the "possible telemarketers" list, the higher the processing time.
