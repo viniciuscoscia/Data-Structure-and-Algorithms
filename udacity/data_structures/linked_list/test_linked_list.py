@@ -19,3 +19,7 @@ linked_list.remove(3)
 assert linked_list.to_list() == [2, 1, 4, 3], f"list contents: {linked_list.to_list()}"
 linked_list.remove(3)
 assert linked_list.to_list() == [2, 1, 4], f"list contents: {linked_list.to_list()}"
+
+value = linked_list.pop()
+assert value == 2, f"list contents: {linked_list.to_list()}"
+assert linked_list.head.value == 1, f"list contents: {linked_list.to_list()}"

@@ -55,3 +55,11 @@ class LinkedList:
 
             previous_node = current_node
             current_node = current_node.next
+
+    def pop(self):
+        if self.head is None:
+            return None
+        old_head: Node = self.head
+        self.head = self.head.next
+        return old_head.value
+
