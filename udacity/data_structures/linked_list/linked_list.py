@@ -41,3 +41,17 @@ class LinkedList:
             if value == current_node.value:
                 return current_node
             current_node = current_node.next
+
+    def remove(self, value):
+        current_node: Node = self.head
+        previous_node = None
+        while current_node:
+            if value == current_node.value:
+                if previous_node is None:
+                    self.head = current_node.next
+                else:
+                    previous_node.next = current_node.next
+                return
+
+            previous_node = current_node
+            current_node = current_node.next
