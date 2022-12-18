@@ -1,3 +1,14 @@
+def string_to_sorted_characters(string):
+    characters = list()
+
+    for char in str(string).lower():
+        if char != ' ':
+            characters.append(char)
+
+    characters.sort()
+    return characters
+
+
 def anagram_checker(str1, str2):
     """
     Check if the input strings are anagrams of each other
@@ -7,24 +18,7 @@ def anagram_checker(str1, str2):
     Returns:
        bool: Indicates whether strings are anagrams
     """
-
-    first_string_characters = list()
-
-    for char in str(str1).lower():
-        if char != ' ':
-            first_string_characters.append(char)
-
-    first_string_characters.sort()
-
-    second_string_characters = list()
-
-    for char in str(str2).lower():
-        if char != ' ':
-            second_string_characters.append(char)
-
-    second_string_characters.sort()
-
-    return first_string_characters == second_string_characters
+    return string_to_sorted_characters(str1) == string_to_sorted_characters(str2)
 
 
 print("Pass" if not (anagram_checker('water', 'waiter')) else "Fail")
