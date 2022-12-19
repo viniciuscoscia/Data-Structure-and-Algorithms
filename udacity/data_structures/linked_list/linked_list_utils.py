@@ -35,3 +35,20 @@ def reverse(linked_list: LinkedList) -> LinkedList:
     reversed_linked_list.head = previous_node
     return reversed_linked_list
 
+
+def is_circular(linked_list: LinkedList) -> bool:
+    if linked_list.head is None:
+        return False
+
+    slow_step = linked_list.head
+    fast_step = linked_list.head
+
+    while fast_step and fast_step.next:
+        slow_step = slow_step.next
+        fast_step = fast_step.next.next
+
+        if slow_step == fast_step:
+            return True
+
+    return False
+

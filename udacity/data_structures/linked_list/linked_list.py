@@ -2,8 +2,11 @@ from udacity.data_structures.linked_list.Node import Node
 
 
 class LinkedList:
-    def __init__(self):
+    def __init__(self, init_list=None):
         self.head = None
+        if init_list:
+            for value in init_list:
+                self.append(value)
 
     def append(self, value):
         if self.head is None:
