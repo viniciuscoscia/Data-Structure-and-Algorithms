@@ -52,3 +52,25 @@ def is_circular(linked_list: LinkedList) -> bool:
 
     return False
 
+
+def merge(list1: LinkedList, list2: LinkedList) -> LinkedList:
+    merged_linked_list = LinkedList()
+    list1_cursor: Node = list1.head
+    list2_cursor: Node = list2.head
+
+    while list1_cursor is not None and list2_cursor is not None:
+        if list1_cursor is None:
+            merged_linked_list.append(list2_cursor)
+            list2_cursor = list2_cursor.next
+        elif list2_cursor is None:
+            merged_linked_list.append(list1_cursor)
+            list1_cursor = list1_cursor.next
+        elif list1_cursor.value >= list2_cursor.value:
+            merged_linked_list.append(list1_cursor.value)
+            list1_cursor = list1_cursor.next
+        else:
+            merged_linked_list.append(list2_cursor.value)
+            list2_cursor = list2_cursor.next
+
+    return merged_linked_list
+
