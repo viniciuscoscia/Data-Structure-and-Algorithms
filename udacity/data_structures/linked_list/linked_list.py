@@ -35,6 +35,7 @@ class LinkedList:
         self.head = new_head
 
     """ Search the linked list for a node with the requested value and return the node. """
+
     def search(self, value):
         current_node: Node = self.head
         while current_node:
@@ -63,3 +64,24 @@ class LinkedList:
         self.head = self.head.next
         return old_head.value
 
+    def insert(self, value, pos):
+        new_node = Node(value)
+
+        if pos == 0 or self.head is None:
+            new_node.next = self.head
+            self.head = new_node
+            return
+
+        current_node: Node = self.head
+        previous_node = None
+        for x in range(pos + 1):
+            if current_node.next is None:
+                current_node.next = Node(value)
+                return
+            elif pos == x:
+                new_node.next = current_node
+                previous_node.next = new_node
+                return
+
+            previous_node = current_node
+            current_node = current_node.next
