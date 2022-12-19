@@ -92,8 +92,18 @@ class LinkedList:
 
         counter = 0
         current_node: Node = self.head
+
         while current_node:
             counter += 1
             current_node = current_node.next
+
         return counter
 
+    def __iter__(self):
+        node = self.head
+        while node:
+            yield node.value
+            node = node.next
+
+    def __repr__(self):
+        return str([v for v in self])

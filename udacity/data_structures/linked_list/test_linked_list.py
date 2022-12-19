@@ -1,35 +1,10 @@
 from udacity.data_structures.linked_list.linked_list import LinkedList
+from udacity.data_structures.linked_list.linked_list_utils import reverse
 
-linked_list = LinkedList()
-linked_list.append(1)
-assert linked_list.to_list() == [1], f"list contents: {linked_list.to_list()}"
-linked_list.append(3)
-assert linked_list.to_list() == [1, 3], f"list contents: {linked_list.to_list()}"
+llist = LinkedList()
+for value in [4, 2, 5, 1, -3, 0]:
+    llist.append(value)
 
-linked_list.prepend(2)
-linked_list.prepend(1)
-linked_list.append(4)
-linked_list.append(3)
-assert linked_list.search(1).value == 1, f"list contents: {linked_list.to_list()}"
-assert linked_list.search(4).value == 4, f"list contents: {linked_list.to_list()}"
-
-linked_list.remove(1)
-assert linked_list.to_list() == [2, 1, 3, 4, 3], f"list contents: {linked_list.to_list()}"
-linked_list.remove(3)
-assert linked_list.to_list() == [2, 1, 4, 3], f"list contents: {linked_list.to_list()}"
-linked_list.remove(3)
-assert linked_list.to_list() == [2, 1, 4], f"list contents: {linked_list.to_list()}"
-
-value = linked_list.pop()
-assert value == 2, f"list contents: {linked_list.to_list()}"
-assert linked_list.head.value == 1, f"list contents: {linked_list.to_list()}"
-
-linked_list.insert(5, 0)
-assert linked_list.to_list() == [5, 1, 4], f"list contents: {linked_list.to_list()}"
-linked_list.insert(2, 1)
-assert linked_list.to_list() == [5, 2, 1, 4], f"list contents: {linked_list.to_list()}"
-linked_list.insert(3, 6)
-assert linked_list.to_list() == [5, 2, 1, 4, 3], f"list contents: {linked_list.to_list()}"
-
-# Test size function
-assert linked_list.size() == 5, f"list contents: {linked_list.to_list()}"
+flipped = reverse(llist)
+is_correct = list(flipped) == list([0, -3, 1, 5, 2, 4]) and list(llist) == list(reverse(flipped))
+print("Pass" if is_correct else "Fail")
