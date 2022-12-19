@@ -85,3 +85,15 @@ class LinkedList:
 
             previous_node = current_node
             current_node = current_node.next
+
+    def size(self):
+        if self.head is None:
+            return 0
+
+        counter = 0
+        current_node: Node = self.head
+        while current_node:
+            counter += 1
+            current_node = current_node.next
+        return counter
+

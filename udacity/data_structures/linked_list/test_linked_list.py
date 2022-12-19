@@ -30,3 +30,6 @@ linked_list.insert(2, 1)
 assert linked_list.to_list() == [5, 2, 1, 4], f"list contents: {linked_list.to_list()}"
 linked_list.insert(3, 6)
 assert linked_list.to_list() == [5, 2, 1, 4, 3], f"list contents: {linked_list.to_list()}"
+
+# Test size function
+assert linked_list.size() == 5, f"list contents: {linked_list.to_list()}"
