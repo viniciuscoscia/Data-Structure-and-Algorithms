@@ -1,6 +1,6 @@
-from udacity.data_structures.stack.stack import Stack
+from udacity.data_structures.stack.arraystack import ArrayStack
 
-stack = Stack()
+stack = ArrayStack()
 
 for value in range(11):
     stack.push(value)
