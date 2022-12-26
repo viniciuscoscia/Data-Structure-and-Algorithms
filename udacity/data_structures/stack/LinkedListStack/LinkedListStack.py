@@ -27,7 +27,6 @@ class LinkedListStack:
 
         return old_head
 
-
     def size(self):
         return self.num_elements
 
