@@ -1,4 +1,4 @@
-from udacity.data_structures.stack.arraystack import ArrayStack
+from udacity.data_structures.stack.array.arraystack import ArrayStack
 
 stack = ArrayStack()
 
