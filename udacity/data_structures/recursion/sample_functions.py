@@ -31,7 +31,7 @@ print("Pass" if (1 == factorial(1)) else "Fail")
 print("Pass" if (120 == factorial(5)) else "Fail")
 
 
-def reverse_string(input):
+def reverse_string(text):
     """
     Return reversed input string
 
@@ -39,15 +39,15 @@ def reverse_string(input):
        reverse_string("abc") returns "cba"
 
     Args:
-      input(str): string to be reversed
+      text(str): string to be reversed
 
     Returns:
       a string that is the reverse of input
     """
-    if input == "":
-        return input
+    if text == "":
+        return text
 
-    return input[-1:] + reverse_string(input[:-1])
+    return text[-1:] + reverse_string(text[:-1])
 
 
 test = "thalyssa"
