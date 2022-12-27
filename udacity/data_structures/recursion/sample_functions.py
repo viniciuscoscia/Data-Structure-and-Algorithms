@@ -52,11 +52,35 @@ def reverse_string(text):
 
 test = "thalyssa"
 
-
 print(reverse_string(test))
 
 print(test[:1])
 print(test[-1:])
 print(test[:-1])
 print(test[1:])
+
+
+def is_palindrome(text):
+    """
+    Return True if input is palindrome, False otherwise.
+
+    Args:
+       text(str): input to be checked if it is palindrome
+    """
+    input_length = len(text)
+    if input_length == 0 or input_length == 1:
+        return True
+
+    if text[0] == text[-1]:
+        return is_palindrome(text[1:-1])
+    else:
+        return False
+
+
+print("Pass" if (is_palindrome("")) else "Fail")
+print("Pass" if (is_palindrome("a")) else "Fail")
+print("Pass" if (is_palindrome("madam")) else "Fail")
+print("Pass" if (is_palindrome("abba")) else "Fail")
+print("Pass" if not (is_palindrome("Udacity")) else "Fail")
+
 
