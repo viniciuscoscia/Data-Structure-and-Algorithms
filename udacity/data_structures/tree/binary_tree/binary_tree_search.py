@@ -1,6 +1,5 @@
 from udacity.data_structures.tree.binary_tree.BinaryTree import BinaryTree
 from udacity.data_structures.tree.binary_tree.NodeState import NodeState
-from udacity.data_structures.tree.binary_tree.TreeNode import TreeNode
 from udacity.data_structures.tree.binary_tree.TreeStack import TreeStack
 
 

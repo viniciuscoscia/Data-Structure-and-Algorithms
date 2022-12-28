@@ -81,4 +81,5 @@ tree.get_root().get_left_child().set_right_child(TreeNode(80))
 
 tree.get_root().set_right_child(TreeNode(150))
 
-depth_first_search(tree)
+print(tree.pre_order_traversal_with_recursion())
+
