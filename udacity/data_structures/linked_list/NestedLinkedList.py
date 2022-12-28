@@ -15,7 +15,7 @@ class NestedLinkedList(LinkedList):
     def _flatten(self, node):
         # A termination condition
         if node.next is None:
-            return merge(node.value, None)  # <-- First argument is a simple LinkedList
+            return merge(node.__value, None)  # <-- First argument is a simple LinkedList
 
         # _flatten() is calling itself untill a termination condition is achieved
-        return merge(node.value, self._flatten(node.next))  # <-- Both arguments are a simple LinkedList each
+        return merge(node.__value, self._flatten(node.next))  # <-- Both arguments are a simple LinkedList each

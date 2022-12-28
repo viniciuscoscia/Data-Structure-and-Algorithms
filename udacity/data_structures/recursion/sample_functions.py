@@ -68,7 +68,7 @@ def is_palindrome(text):
        text(str): input to be checked if it is palindrome
     """
     input_length = len(text)
-    if input_length == 0 or input_length == 1:
+    if input_length <= 1:
         return True
 
     if text[0] == text[-1]:

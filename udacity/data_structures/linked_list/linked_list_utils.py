@@ -6,7 +6,7 @@ def print_linked_list(head):
     current_node = head
 
     while current_node:
-        print(current_node.value)
+        print(current_node.__value)
         current_node = current_node.next
 
 
@@ -68,7 +68,7 @@ def merge(list1, list2):
         elif list2_elt is None:
             merged.append(list1_elt)
             list1_elt = list1_elt.next
-        elif list1_elt.value <= list2_elt.value:
+        elif list1_elt.__value <= list2_elt.__value:
             merged.append(list1_elt)
             list1_elt = list1_elt.next
         else:
