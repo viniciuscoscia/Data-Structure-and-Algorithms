@@ -1,8 +1,9 @@
 import sys
 from functools import total_ordering
 from queue import PriorityQueue
+import sys
 
-
+sys.setrecursionlimit(30000)
 @total_ordering
 class Node:
     def __init__(self, value=None, frequency=None, right_child=None, left_child=None):
@@ -27,6 +28,9 @@ class Node:
 
 
 def huffman_encoding(text_to_encode: str):
+    if len(text_to_encode) == 0:
+        return "", Node()
+
     nodes = dict()
 
     for char in text_to_encode:
@@ -81,7 +85,7 @@ def build_code_table(huffman_tree):
     return huffman_codes
 
 
-def huffman_decoding(encoded_text, tree: Node):
+def huffman_decoding(encoded_text: str, tree: Node):
     characters = []
 
     def search_character(encoded_text, node: Node):
@@ -120,11 +124,58 @@ if __name__ == "__main__":
     print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
     print("The content of the encoded data is: {}\n".format(decoded_data))
 
-# Add your own test cases: include at least three test cases
-# and two of them must include edge cases, such as null, empty or very large values
+    # Add your own test cases: include at least three test cases
+    # and two of them must include edge cases, such as null, empty or very large values
 
-# Test Case 1
+    # Test Case 1
+    a_great_sentence = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vestibulum nisi quis purus dictum viverra. Ut quis justo porttitor, gravida metus non, iaculis tellus. In faucibus nibh hendrerit magna accumsan, a volutpat elit luctus. Vestibulum laoreet risus ac est tristique rhoncus. Integer orci erat, auctor id consequat dignissim, lobortis a lacus. Integer varius dui eu eros pretium faucibus. Fusce posuere eros at velit ultrices luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla viverra sit amet arcu sit amet cursus. Curabitur condimentum lectus ac quam iaculis laoreet.
+Morbi molestie sed diam sit amet finibus. Sed urna lorem, feugiat non massa eu, fermentum dapibus elit. Cras vel suscipit erat. Pellentesque a ipsum lorem. Ut dui turpis, varius non mollis ut, malesuada vel dolor. Nam mi neque, lacinia at volutpat quis, condimentum at lectus. Morbi pretium turpis a lectus commodo sodales.
+Phasellus at massa eleifend, facilisis enim non, pretium ipsum. Cras commodo dictum imperdiet. Pellentesque posuere vitae tellus vitae accumsan. Phasellus nulla ex, convallis eget elit et, tempor dignissim urna. Aliquam quis neque vitae nisl tempus fermentum. Pellentesque volutpat velit justo, sed pulvinar magna efficitur sit amet. Vestibulum porta orci vel felis rutrum fermentum. Nulla facilisi. Pellentesque sed metus lorem. Nunc vitae nisi erat.
+Nam quis nulla nisl. Vestibulum euismod nisl libero, varius ultricies sapien interdum ut. Vestibulum tincidunt risus velit, et rutrum turpis pulvinar non. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean accumsan dui eu feugiat ultricies. Nullam consequat ipsum vitae sapien venenatis vulputate. Aliquam in nisl sit amet nibh malesuada molestie eleifend eget magna.
+Fusce ac pretium lacus, non aliquam eros. Sed eget venenatis dui, ut tempus arcu. Suspendisse fermentum magna justo, a varius ligula vehicula nec. Morbi id ex finibus, ultrices eros vel, pellentesque felis. Aliquam gravida dui lectus, quis varius mauris sagittis eu. Suspendisse potenti. Duis ultrices nibh non arcu congue hendrerit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur lacus leo, vitae blandit odio convallis sed. Proin euismod est sapien, ut volutpat nulla vulputate non. Duis tincidunt orci vitae nisi dapibus, a ornare neque suscipit. Morbi elit diam, fringilla sed pretium vel, scelerisque non eros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam nec tempus felis. Morbi viverra sem non aliquam sollicitudin.
+"""
 
-# Test Case 2
+    print("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
+    print("The content of the data is: {}\n".format(a_great_sentence))
 
-# Test Case 3
+    encoded_data, tree = huffman_encoding(a_great_sentence)
+
+    print("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(encoded_data, tree)
+
+    print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print("The content of the encoded data is: {}\n".format(decoded_data))
+
+    # Test Case 2
+    a_great_sentence = ""
+
+    print("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
+    print("The content of the data is: {}\n".format(a_great_sentence))
+
+    encoded_data, tree = huffman_encoding(a_great_sentence)
+
+    # print("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(encoded_data, tree)
+
+    print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print("The content of the encoded data is: {}\n".format(decoded_data))
+
+    # Test Case 3
+    a_great_sentence = "AAAAAAAAAAABBBBBBBBBBBBCCCCCDDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+
+    print("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
+    print("The content of the data is: {}\n".format(a_great_sentence))
+
+    encoded_data, tree = huffman_encoding(a_great_sentence)
+
+    print("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(encoded_data, tree)
+
+    print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print("The content of the encoded data is: {}\n".format(decoded_data))
