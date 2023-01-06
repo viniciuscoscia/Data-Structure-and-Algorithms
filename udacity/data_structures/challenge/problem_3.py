@@ -82,21 +82,24 @@ def build_code_table(huffman_tree):
 
 
 def huffman_decoding(encoded_text, tree: Node):
-    decoded_text = ""
+    characters = []
 
-    def search_character(node: Node, encoded_text):
+    def search_character(encoded_text, node: Node):
         if node.is_leaf():
-            decoded_text += node.value
-            return
+            characters.append(node.value)
+            if len(encoded_text) > 0:
+                return search_character(encoded_text, tree)
+            else:
+                return "".join(str(x) for x in characters)
 
         char = encoded_text[0]
 
         if char == "0":
-            return search_character(node.left_child, encoded_text[1:])
+            return search_character(encoded_text[1:], node.left_child)
         elif char == "1":
-            return search_character(node.right_child, encoded_text[1:])
+            return search_character(encoded_text[1:], node.right_child)
 
-    search_character(tree, encoded_text)
+    return search_character(encoded_text, tree)
 
 
 if __name__ == "__main__":
