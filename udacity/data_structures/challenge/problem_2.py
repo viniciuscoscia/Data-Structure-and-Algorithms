@@ -38,11 +38,11 @@ def find_files(suffix: str, initial_path: str):
 # and two of them must include edge cases, such as null, empty or very large values
 
 # Test Case 1
-print(find_files(".c", "./testdir"))
+print(find_files(".c", "testdir"))
 
 # Test Case 2
-print(find_files("", "./testdir"))
+print(find_files("", "testdir"))
 
 # Test Case 3
-print(find_files("", "."))
+print(find_files("", "./"))
 
