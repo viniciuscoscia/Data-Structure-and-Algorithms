@@ -6,6 +6,6 @@ then it's very fast to add new elements (O(Log N)).
 The whole function has Linear (O(N)) time complexity, as it grows as bigger is the data to encode.
 
 huffman_decoding:
-Used a list to hold the data and recursive function to decode.
+Used a list to hold the data and recursive function to decode, adding new characters to the list, then converting it to String
 Function is O(Log N)
 
