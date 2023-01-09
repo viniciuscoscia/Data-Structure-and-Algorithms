@@ -35,6 +35,12 @@ class LinkedList:
 
         node.next = Node(value)
 
+    def __iter__(self):
+        node = self.head
+        while node:
+            yield node.value
+            node = node.next
+
     def size(self):
         size = 0
         node = self.head
@@ -63,14 +69,12 @@ def union(llist_1, llist_2):
 
 def intersection(linked_list_1, linked_list_2):
     list_1_values = set()
-    list_2_values = set()
 
     linked_list_1.add_values_to_set(list_1_values)
-    linked_list_2.add_values_to_set(list_2_values)
 
     intersection_values = set()
-    for element in list_1_values:
-        if element in list_2_values:
+    for element in linked_list_2:
+        if element in list_1_values:
             intersection_values.add(element)
 
     return intersection_values
@@ -128,8 +132,8 @@ test_operations_time(
 
 # Test Case 1
 test_operations_time(
-    values1=[random.randint(0, 1000) for _ in range(100)],
-    values2=[random.randint(0, 1000) for _ in range(100)]
+    values1=[random.randint(0, 100) for _ in range(100)],
+    values2=[random.randint(0, 100) for _ in range(100)]
 )
 
 # Test Case 2
@@ -140,6 +144,6 @@ test_operations_time(
 
 # Test Case 3
 test_operations_time(
-    values1=[random.randint(0, 100000) for _ in range(10000)],
-    values2=[random.randint(0, 100000) for _ in range(10000)]
+    values1=[random.randint(0, 1000000) for _ in range(100000)],
+    values2=[random.randint(0, 1000000) for _ in range(100000)]
 )
