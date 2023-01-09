@@ -1,9 +1,10 @@
 import sys
 from functools import total_ordering
 from queue import PriorityQueue
-import sys
 
 sys.setrecursionlimit(30000)
+
+
 @total_ordering
 class Node:
     def __init__(self, value=None, frequency=None, right_child=None, left_child=None):

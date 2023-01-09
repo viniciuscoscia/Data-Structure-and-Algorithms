@@ -41,8 +41,10 @@ def find_files(suffix: str, initial_path: str):
 print(find_files(".c", "testdir"))
 
 # Test Case 2
-print(find_files("", "testdir"))
+print(find_files(".md", "testdir"))
+print(find_files(".md", "./"))
 
 # Test Case 3
+print(find_files("", "testdir"))
 print(find_files("", "./"))
 
