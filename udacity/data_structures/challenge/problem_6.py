@@ -1,7 +1,5 @@
 import random
 import time
-from datetime import timedelta
-from timeit import default_timer as timer
 
 
 class Node:
@@ -133,19 +131,19 @@ test_operations_time(
 # Add your own test cases: include at least three test cases
 # and two of them must include edge cases, such as null, empty or very large values
 
-# Test Case 1
+print("Test 1")
 test_operations_time(
     values1=[random.randint(0, 100) for _ in range(100)],
     values2=[random.randint(0, 100) for _ in range(100)]
 )
 
-# Test Case 2
+print("Test 2")
 test_operations_time(
     values1=[],
     values2=[]
 )
 
-# Test Case 3
+print("Test 3")
 test_operations_time(
     values1=[random.randint(0, 100000000) for _ in range(1000000)],
     values2=[random.randint(0, 100000000) for _ in range(1000000)]

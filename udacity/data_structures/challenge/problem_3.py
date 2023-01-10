@@ -180,3 +180,6 @@ Fusce ac pretium lacus, non aliquam eros. Sed eget venenatis dui, ut tempus arcu
 
     print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
     print("The content of the encoded data is: {}\n".format(decoded_data))
+print("Test 1")
+print("Test 2")
+print("Test 3")

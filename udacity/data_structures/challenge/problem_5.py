@@ -76,7 +76,7 @@ class BlockChain:
             block = block.previous_block
 
 
-# Test 1
+print("Test 1")
 block_chain = BlockChain()
 
 first_transaction_hash = block_chain.register_transaction("first transaction")
@@ -89,12 +89,12 @@ print(block_chain.get_data(third_transaction_hash))
 
 block_chain.print_transactions_by_oldest()
 
-# Test 2
+print("Test 2")
 block_chain = BlockChain()
 print(block_chain.get_data("any hash"))
 block_chain.print_transactions_by_oldest()  # Blockchain is empty
 
-# Test 3
+print("Test 3")
 block_chain = BlockChain()
 for x in range(1000):
     block_chain.register_transaction(str(x))

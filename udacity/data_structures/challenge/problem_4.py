@@ -81,7 +81,7 @@ parent_group.add_group(child_group2)
 active_directory = ActiveDirectory()
 active_directory.add_group(parent_group)
 
-# Test Case 1
+print("Test 1")
 print(active_directory.is_user_in_group(user=sub_child_user, group=parent_group))  # True
 print(active_directory.is_user_in_group(user=sub_child_user, group=sub_child_group))  # True
 print(active_directory.is_user_in_group(user=child_user2, group=child_group))  # False
@@ -89,11 +89,14 @@ print(active_directory.is_user_in_group(user=child_user, group=child_group2))  #
 print(active_directory.is_user_in_group(user=child_user, group=parent_group))  # True
 print(active_directory.is_user_in_group(user=child_user2, group=parent_group))  # True
 
-# Test Case 2
+print("Test 2")
 print(active_directory.is_user_in_group(user=child_user2, group=child_group))  # False
 
-# Test Case 3
+print("Test 3")
 print(active_directory.is_user_in_group(user="", group=parent_group))  # False
-print(active_directory.is_user_in_group(
-    user="14325314653241562314562314652314536241562314562341232314526314526231456231426231406252341+562314",
-    group=parent_group))  # False
+print(
+    active_directory.is_user_in_group(
+        user="14325314653241562314562314652314536241562314562341232314526314526231456231426231406252341+562314",
+        group=parent_group
+    )
+)  # False

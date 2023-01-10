@@ -150,6 +150,7 @@ class LRUCache:
 # and two of them must include edge cases, such as null, empty or very large values
 
 # Test Case 1
+print("Test 1")
 our_cache = LRUCache(5)
 
 our_cache.set(1, 1)
@@ -176,6 +177,7 @@ our_cache.set(None, 1000)
 print(our_cache.get(None))  # Skip
 
 # Test Case 2
+print("Test 2")
 our_cache = LRUCache(1)
 our_cache.set(6, None)
 print(our_cache.get(6))  # None
@@ -185,6 +187,7 @@ print(our_cache.get(6))  # -1
 print(our_cache.get(5))  # None
 
 # Test Case 3
+print("Test 3")
 our_cache = LRUCache(0)
 our_cache.set(1, 100000000000000000000000000000000000000000000)
 print(our_cache.get(1))  # -1
