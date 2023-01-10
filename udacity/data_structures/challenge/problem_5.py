@@ -41,7 +41,6 @@ class Block:
 class BlockChain:
     def __init__(self):
         self.tail = None
-        self.blocks = dict()
 
     def register_transaction(self, data):
         if data is None:
@@ -53,25 +52,51 @@ class BlockChain:
         )
 
         self.tail = block
-        self.blocks.setdefault(block.hashcode, block)
 
         return block.hashcode
 
     def get_data(self, hashcode: str):
-        return self.blocks.get(hashcode)
+        block: Block = self.tail
+
+        if block is None:
+            return None
+
+        while block is not None and block.hashcode != hashcode:
+            block = block.previous_block
+
+        return block.data
 
     def print_transactions_by_oldest(self):
+        if self.tail is None:
+            print("Blockchain is empty")
+
         block: Block = self.tail
         while block:
             print(block)
             block = block.previous_block
 
 
+# Test 1
 block_chain = BlockChain()
 
 first_transaction_hash = block_chain.register_transaction("first transaction")
 second_transaction_hash = block_chain.register_transaction("second transaction")
 third_transaction_hash = block_chain.register_transaction("third transaction")
-fourth_transaction_hash = block_chain.register_transaction(None)
+
+print(block_chain.get_data(first_transaction_hash))
+print(block_chain.get_data(second_transaction_hash))
+print(block_chain.get_data(third_transaction_hash))
+
+block_chain.print_transactions_by_oldest()
+
+# Test 2
+block_chain = BlockChain()
+print(block_chain.get_data("any hash"))
+block_chain.print_transactions_by_oldest()  # Blockchain is empty
+
+# Test 3
+block_chain = BlockChain()
+for x in range(1000):
+    block_chain.register_transaction(str(x))
 
 block_chain.print_transactions_by_oldest()
