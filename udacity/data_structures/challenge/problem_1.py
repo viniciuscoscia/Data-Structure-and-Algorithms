@@ -37,7 +37,7 @@ class LRUCache:
         return node.value
 
     def set(self, key, value):
-        if key is None:
+        if key is None or self.capacity == 0:
             return
 
         node = self.hash_table.get(key)
@@ -146,6 +146,10 @@ class LRUCache:
         self.counter -= 1
 
 
+# Add your own test cases: include at least three test cases
+# and two of them must include edge cases, such as null, empty or very large values
+
+# Test Case 1
 our_cache = LRUCache(5)
 
 our_cache.set(1, 1)
@@ -162,10 +166,6 @@ our_cache.set(6, 6)
 
 print(our_cache.get(3))  # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
 
-# Add your own test cases: include at least three test cases
-# and two of them must include edge cases, such as null, empty or very large values
-
-# Test Case 1
 our_cache.set(3, 33)
 print(our_cache.get(3))  # 33
 
@@ -176,11 +176,15 @@ our_cache.set(None, 1000)
 print(our_cache.get(None))  # Skip
 
 # Test Case 2
+our_cache = LRUCache(1)
 our_cache.set(6, None)
 print(our_cache.get(6))  # None
+print(our_cache.get(5))  # -1
+our_cache.set(5, None)
+print(our_cache.get(6))  # -1
+print(our_cache.get(5))  # None
 
 # Test Case 3
+our_cache = LRUCache(0)
 our_cache.set(1, 100000000000000000000000000000000000000000000)
-print(our_cache.get(1))  #100000000000000000000000000000000000000000000
-
-print(our_cache.hash_table)
+print(our_cache.get(1))  # -1
