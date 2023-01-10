@@ -28,17 +28,9 @@ class Node:
         return self.frequency < other.frequency
 
 
-def huffman_encoding(text_to_encode: str):
-    if len(text_to_encode) == 0:
-        return "", Node()
-
-    nodes = dict()
-
-    for char in text_to_encode:
-        if char not in nodes:
-            nodes[char] = Node(value=char, frequency=1)
-        else:
-            nodes.get(char).frequency += 1
+def build_tree(nodes: dict) -> Node:
+    if len(nodes) == 1:
+        return nodes.popitem()[1]
 
     priority_queue = PriorityQueue()
     for char, node in nodes.items():
@@ -57,7 +49,41 @@ def huffman_encoding(text_to_encode: str):
 
         priority_queue.put(node)
 
-    tree_root: Node = priority_queue.get()
+    return priority_queue.get()
+
+
+def build_code_table(huffman_tree_root):
+    huffman_codes = dict()
+
+    if huffman_tree_root.is_leaf():
+        huffman_codes.setdefault(huffman_tree_root.value, "0")
+        return huffman_codes
+
+    def generate_code(node: Node, code: str):
+        if node.is_leaf():
+            huffman_codes.setdefault(node.value, code)
+            return
+
+        generate_code(node.left_child, code + "0")
+        generate_code(node.right_child, code + "1")
+
+    generate_code(huffman_tree_root, "")
+
+    return huffman_codes
+
+
+def huffman_encoding(text_to_encode: str):
+    if len(text_to_encode) == 0:
+        return "", Node()
+
+    nodes = dict()
+    for char in text_to_encode:
+        if char not in nodes:
+            nodes[char] = Node(value=char, frequency=1)
+        else:
+            nodes.get(char).frequency += 1
+
+    tree_root: Node = build_tree(nodes)
 
     code_table = build_code_table(tree_root)
 
@@ -70,24 +96,13 @@ def huffman_encoding(text_to_encode: str):
     return encoded, tree_root
 
 
-def build_code_table(huffman_tree):
-    huffman_codes = dict()
-
-    def generate_code(node: Node, code: str):
-        if node.is_leaf():
-            huffman_codes.setdefault(node.value, code)
-            return
-
-        generate_code(node.left_child, code + "0")
-        generate_code(node.right_child, code + "1")
-
-    generate_code(huffman_tree, "")
-
-    return huffman_codes
-
-
 def huffman_decoding(encoded_text: str, tree: Node):
     characters = []
+
+    if tree.is_leaf():
+        for _ in encoded_text:
+            characters += tree.value
+        return characters
 
     def search_character(encoded_text, node: Node):
         if node.is_leaf():
@@ -108,8 +123,7 @@ def huffman_decoding(encoded_text: str, tree: Node):
 
 
 if __name__ == "__main__":
-    codes = {}
-
+    print("Test 1")
     a_great_sentence = "The bird is the word"
 
     print("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
@@ -122,13 +136,12 @@ if __name__ == "__main__":
 
     decoded_data = huffman_decoding(encoded_data, tree)
 
-    print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-    print("The content of the encoded data is: {}\n".format(decoded_data))
+    print("DECODE: The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print("DECODE: The content of the encoded data is: {}\n".format(decoded_data))
 
     # Add your own test cases: include at least three test cases
     # and two of them must include edge cases, such as null, empty or very large values
 
-    # Test Case 1
     a_great_sentence = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vestibulum nisi quis purus dictum viverra. Ut quis justo porttitor, gravida metus non, iaculis tellus. In faucibus nibh hendrerit magna accumsan, a volutpat elit luctus. Vestibulum laoreet risus ac est tristique rhoncus. Integer orci erat, auctor id consequat dignissim, lobortis a lacus. Integer varius dui eu eros pretium faucibus. Fusce posuere eros at velit ultrices luctus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla viverra sit amet arcu sit amet cursus. Curabitur condimentum lectus ac quam iaculis laoreet.
 Morbi molestie sed diam sit amet finibus. Sed urna lorem, feugiat non massa eu, fermentum dapibus elit. Cras vel suscipit erat. Pellentesque a ipsum lorem. Ut dui turpis, varius non mollis ut, malesuada vel dolor. Nam mi neque, lacinia at volutpat quis, condimentum at lectus. Morbi pretium turpis a lectus commodo sodales.
 Phasellus at massa eleifend, facilisis enim non, pretium ipsum. Cras commodo dictum imperdiet. Pellentesque posuere vitae tellus vitae accumsan. Phasellus nulla ex, convallis eget elit et, tempor dignissim urna. Aliquam quis neque vitae nisl tempus fermentum. Pellentesque volutpat velit justo, sed pulvinar magna efficitur sit amet. Vestibulum porta orci vel felis rutrum fermentum. Nulla facilisi. Pellentesque sed metus lorem. Nunc vitae nisi erat.
@@ -146,10 +159,11 @@ Fusce ac pretium lacus, non aliquam eros. Sed eget venenatis dui, ut tempus arcu
 
     decoded_data = huffman_decoding(encoded_data, tree)
 
-    print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-    print("The content of the encoded data is: {}\n".format(decoded_data))
+    print("DECODE: The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print("DECODE: The content of the encoded data is: {}\n".format(decoded_data))
 
-    # Test Case 2
+
+    print("Test 2")
     a_great_sentence = ""
 
     print("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
@@ -162,11 +176,12 @@ Fusce ac pretium lacus, non aliquam eros. Sed eget venenatis dui, ut tempus arcu
 
     decoded_data = huffman_decoding(encoded_data, tree)
 
-    print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-    print("The content of the encoded data is: {}\n".format(decoded_data))
+    print("DECODE: The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print("DECODE: The content of the encoded data is: {}\n".format(decoded_data))
 
-    # Test Case 3
-    a_great_sentence = "AAAAAAAAAAABBBBBBBBBBBBCCCCCDDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+
+    print("Test 3")
+    a_great_sentence = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 
     print("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
     print("The content of the data is: {}\n".format(a_great_sentence))
@@ -178,8 +193,6 @@ Fusce ac pretium lacus, non aliquam eros. Sed eget venenatis dui, ut tempus arcu
 
     decoded_data = huffman_decoding(encoded_data, tree)
 
-    print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-    print("The content of the encoded data is: {}\n".format(decoded_data))
-print("Test 1")
-print("Test 2")
-print("Test 3")
+    print("DECODE: The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print("DECODE: The content of the encoded data is: {}\n".format(decoded_data))
+
