@@ -99,3 +99,38 @@ target = 4
 index = 4
 test_case = [array, target, index]
 test_function(test_case)
+
+
+def check_previous(target, source, index):
+    if source[index - 1] == target:
+        return check_previous(target, source, index - 1)
+    else:
+        return index
+
+
+def find_first(target: int, source: list) -> int:
+    index = binary_search(source, target)
+    if index == -1:
+        return None
+    return check_previous(target, source, index)
+
+
+def find_first_iteration(target: int, source: list):
+    index = binary_search(source, target)
+    if index == -1:
+        return None
+
+    while target == source[index]:
+        if index == 0:
+            return None
+        elif source[index-1] == target:
+            index -= 1
+        else:
+            return index
+
+
+multiple = [1, 3, 5, 7, 7, 7, 8, 11, 12, 13, 14, 15]
+print(find_first(7, multiple))  # Should return 3
+print(find_first(9, multiple))  # Should return None
+print(find_first_iteration(7, multiple))  # Should return 3
+print(find_first_iteration(9, multiple))  # Should return None

@@ -26,7 +26,6 @@ class ActiveDirectory:
 
     def add_group(self, group: Group):
         self.search_for_users(group, set())
-        print(self.users)
 
     def search_for_users(self, group: Group, group_set: set):
         group_set.add(group.name)

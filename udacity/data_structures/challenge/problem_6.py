@@ -1,4 +1,5 @@
 import random
+import time
 from datetime import timedelta
 from timeit import default_timer as timer
 
@@ -15,6 +16,7 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None
+        self.tail = None
 
     def __str__(self):
         cur_head = self.head
@@ -25,15 +27,16 @@ class LinkedList:
         return out_string
 
     def append(self, value):
+        new_tail = Node(value)
+
         if self.head is None:
-            self.head = Node(value)
+            self.head = new_tail
+            self.tail = new_tail
             return
 
-        node = self.head
-        while node.next:
-            node = node.next
-
-        node.next = Node(value)
+        old_tail = self.tail
+        old_tail.next = new_tail
+        self.tail = new_tail
 
     def __iter__(self):
         node = self.head
@@ -102,15 +105,15 @@ def build_linked_lists(values1: list, values2: list):
 def test_operations_time(values1: list, values2: list):
     print("\n============== STARTING TEST ==============")
     linked_list_1, linked_list_2 = build_linked_lists(values1, values2)
-    start = timer()
+    start = time.time()
     print(union(linked_list_1, linked_list_2))
-    end = timer()
-    print(f'Union executed in {timedelta(end - start)} seconds')
+    end = time.time()
+    print(f'Union executed in {end - start} milliseconds')
 
-    start = timer()
+    start = time.time()
     print(intersection(linked_list_1, linked_list_2))
-    end = timer()
-    print(f'Intersection executed in {timedelta(end - start)} seconds')
+    end = time.time()
+    print(f'Intersection executed in {(end - start) * 1000} milliseconds')
 
     print("============== TEST ENDED ==============\n")
 
@@ -144,6 +147,6 @@ test_operations_time(
 
 # Test Case 3
 test_operations_time(
-    values1=[random.randint(0, 1000000) for _ in range(100000)],
-    values2=[random.randint(0, 1000000) for _ in range(100000)]
+    values1=[random.randint(0, 100000000) for _ in range(1000000)],
+    values2=[random.randint(0, 100000000) for _ in range(1000000)]
 )
