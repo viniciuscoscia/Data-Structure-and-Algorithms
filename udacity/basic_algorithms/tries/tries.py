@@ -9,8 +9,8 @@ basic_trie = {
     # hi word
     'h': {
         'i': {'word_end': True},
-        'word_end': False}}
-
+        'word_end': False}
+}
 
 print('Is "a"   a word: {}'.format(basic_trie['a']['word_end']))
 print('Is "ad"  a word: {}'.format(basic_trie['a']['d']['word_end']))
