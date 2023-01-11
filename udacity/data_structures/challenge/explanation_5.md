@@ -1,7 +1,5 @@
 For this problem, I have used a dict to hold Nodes of a Linked List.
-For every register_transaction call, we add a new node to the dict and move it to the tail, so, a constant space operation O(1). Those operations are Constant Time
-The "get_data" is also a constant time operation as it uses the Node's hashcode to retrieve the data from the dict
+For every register_transaction call, we add a new node to the dict and move it to the tail, so, a constant space operation O(1). This operation is also constant time O(1)
+The "get_data" is a linear time operation O(n) as it iterates through all items until find the node that matches the hashcode, but is a constant space O(1) operation as it doesn't need any new list
 
-Only the "print_transactions_by_oldest" has linear time complexity, as it iterates through the nodes and prints its data.
-
-All functions are constant space operations, no new collections are required.
+The "print_transactions_by_oldest" has linear time complexity O(n), as it iterates through the nodes and prints its data, but constant space complexity O(1) as no new objects are created
