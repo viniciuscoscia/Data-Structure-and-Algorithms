@@ -39,14 +39,6 @@ print('{} to {}'.format(test_list_2, mergesort(test_list_2)))
 print('{} to {}'.format(test_list_3, mergesort(test_list_3)))
 
 
-def sum_results(left, right):
-    pass
-
-
-def execute(arr):
-    pass
-
-
 def merge_and_count(arr, left_start_index, left_end_index, right_start_index, right_end_index):
     sorted_array_size = (left_end_index - left_start_index + 1) + (right_end_index - right_start_index + 1)
     sorted_array = [None for _ in range(sorted_array_size)]
