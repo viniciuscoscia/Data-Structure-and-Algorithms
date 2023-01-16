@@ -10,16 +10,20 @@ def heapify(arr, array_size, current_node_index):
 
     # compare with left child
     if left_node_index < array_size and arr[current_node_index] < arr[left_node_index]:
+        left_value = arr[left_node_index]
+        print(f'left_node_index ({left_value})  < array_size')
         largest_index = left_node_index
 
     # compare with right child
     if right_node_index < array_size and arr[largest_index] < arr[right_node_index]:
+        right_value = arr[right_node_index]
+        print(f'right_node_value ({right_value}) < array_size')
         largest_index = right_node_index
 
     # if either of left / right child is the largest node
     if largest_index != current_node_index:
+        print(f'{arr[current_node_index]} troca com {arr[largest_index]}')
         arr[current_node_index], arr[largest_index] = arr[largest_index], arr[current_node_index]
-        print('Inner heapify')
         heapify(arr, array_size, largest_index)
 
 
@@ -30,11 +34,11 @@ def heapsort(arr):
     # array is sorted
     n = len(arr)
 
-    # Build a maxheap.
-    for i in range(n, -1, -1):
+    print('BUILD A MAXHEAP.')
+    for i in range(n//2, -1, -1):
         heapify(arr, n, i)
 
-    # One by one extract elements
+    print('EXTRACT ELEMENTS.')
     for i in range(n - 1, 0, -1):
         arr[i], arr[0] = arr[0], arr[i]  # swap
         heapify(arr, i, 0)
@@ -48,11 +52,14 @@ def test_function(test_case):
         print("False")
 
 
+arr = [7, 3, 5, 1, 2, 4, 9, 6]
+solution = [1, 2, 3, 4, 5, 6, 7, 9]
+test_case = [arr, solution]
+test_function(test_case)
+
 arr = [3, 7, 4, 6, 1, 0, 9, 8, 9, 4, 3, 5]
 solution = [0, 1, 3, 3, 4, 4, 5, 6, 7, 8, 9, 9]
-
 test_case = [arr, solution]
-
 test_function(test_case)
 
 arr = [5, 5, 5, 3, 3, 3, 4, 4, 4, 4]
