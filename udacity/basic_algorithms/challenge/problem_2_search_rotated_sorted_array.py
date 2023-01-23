@@ -35,14 +35,15 @@ def binary_search(array, start_index, end_index, number):
         return binary_search(array, start_index, mid_index - 1, number)
 
 
-def rotated_array_search(input_list, number):
+def rotated_array_search(input_list: list, number: int):
     """
     Find the index by searching in a rotated sorted array
 
     Args:
-       input_list(array), number(int): Input array to search and the target
+       :param input_list: Input array to search and the target
+       :param number: Key to find on input list
     Returns:
-       int: Index or -1
+       int: number index or -1 if not found
     """
     end_index = len(input_list) - 1
     pivot = find_pivot(input_list, 0, end_index)
