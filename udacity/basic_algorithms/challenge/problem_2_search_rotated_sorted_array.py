@@ -1,3 +1,40 @@
+def calculate_mid_index(start_index, end_index):
+    return start_index + (end_index - start_index) // 2
+
+
+def find_pivot(array, start_index, end_index):
+    if end_index < start_index:
+        return -1
+
+    if start_index == end_index:
+        return end_index
+
+    mid_index = calculate_mid_index(start_index, end_index)
+
+    if array[mid_index] >= array[mid_index + 1]:
+        return mid_index
+    elif array[mid_index] < array[mid_index - 1]:
+        return mid_index - 1
+    elif array[mid_index] > array[end_index]:
+        return find_pivot(array, mid_index + 1, end_index)
+    else:
+        return find_pivot(array, start_index, mid_index - 1)
+
+
+def binary_search(array, start_index, end_index, number):
+    if end_index < start_index:
+        return -1
+
+    mid_index = calculate_mid_index(start_index, end_index)
+
+    if number == array[mid_index]:
+        return mid_index
+    elif number > array[mid_index]:
+        return binary_search(array, mid_index + 1, end_index, number)
+    else:
+        return binary_search(array, start_index, mid_index - 1, number)
+
+
 def rotated_array_search(input_list, number):
     """
     Find the index by searching in a rotated sorted array
@@ -7,8 +44,18 @@ def rotated_array_search(input_list, number):
     Returns:
        int: Index or -1
     """
+    end_index = len(input_list) - 1
+    pivot = find_pivot(input_list, 0, end_index)
 
-    pass
+    if pivot == -1:  # Sorted array
+        return binary_search(input_list, 0, end_index, number)
+
+    if input_list[pivot] == number:
+        return pivot
+    elif input_list[0] <= number:
+        return binary_search(input_list, 0, pivot - 1, number)
+    else:
+        return binary_search(input_list, pivot + 1, end_index, number)
 
 
 def linear_search(input_list, number):
@@ -27,7 +74,10 @@ def test_function(test_case):
         print("Fail")
 
 
-test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 6])
+test_function([[1, 2, 3, 4, 5, 6], 4])
+test_function([[3, 4, 6, 7, 8, 9, 10, 1, 2], 4])
+test_function([[9, 10, 1, 2, 3, 4, 6, 7, 8], 4])
+test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 4])
 test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 1])
 test_function([[6, 7, 8, 1, 2, 3, 4], 8])
 test_function([[6, 7, 8, 1, 2, 3, 4], 1])
