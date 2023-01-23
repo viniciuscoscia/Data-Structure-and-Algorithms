@@ -3,11 +3,11 @@ def calculate_mid_index(start_index, end_index):
 
 
 def find_pivot(array, start_index, end_index):
-    if end_index < start_index:
-        return -1
-
     if start_index == end_index:
         return end_index
+
+    if end_index < start_index:
+        return -1
 
     mid_index = calculate_mid_index(start_index, end_index)
 
@@ -74,7 +74,12 @@ def test_function(test_case):
         print("Fail")
 
 
-test_function([[1, 2, 3, 4, 5, 6], 4])
+# Sorted
+test_function([[1, 2, 3, 4, 5, 6], 6])
+test_function([[1, 2, 3, 4, 5, 6], 1])
+test_function([[1, 2, 3, 4, 5, 6], 0])
+
+# Unsorted
 test_function([[3, 4, 6, 7, 8, 9, 10, 1, 2], 4])
 test_function([[9, 10, 1, 2, 3, 4, 6, 7, 8], 4])
 test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 4])
@@ -82,3 +87,10 @@ test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 1])
 test_function([[6, 7, 8, 1, 2, 3, 4], 8])
 test_function([[6, 7, 8, 1, 2, 3, 4], 1])
 test_function([[6, 7, 8, 1, 2, 3, 4], 10])
+
+# Others
+test_function([[], 1])
+test_function([[], 0])
+test_function([[1], 10])
+
+# All should pass
