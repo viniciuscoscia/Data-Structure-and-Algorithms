@@ -1,25 +1,4 @@
 # Newton-Raphson Method
-def try_guess(guess: int, input: int):
-    result = guess * guess
-
-    if result == input:
-        return guess
-    elif result > input:
-        smaller_guess = guess - 1
-
-        if smaller_guess * smaller_guess <= input:  # If input is between result and smaller result, returns smaller
-            # (floor)
-            return smaller_guess
-        else:
-            return try_guess(guess=(guess // 2) - 1, input=input)
-    else:
-        bigger_guess = guess + 1
-
-        if bigger_guess * bigger_guess > input:
-            return guess
-        else:
-            return try_guess(guess=(guess * 2) + 1, input=input)
-
 
 def sqrt(input: int):
     """
@@ -30,10 +9,10 @@ def sqrt(input: int):
     Returns:
        int: Floored Square Root
     """
-    if input is None or input < 1:
-        return 0
+    if input is None or input < 0:
+        return -1
 
-    return try_guess(guess=input // 2, input=input)
+    return (input ** .5)//1
 
 
 print("TEST 1")
@@ -53,6 +32,7 @@ print("Pass" if (6 == sqrt(37)) else "Fail")
 print("Pass" if (10 == sqrt(110)) else "Fail")
 
 print("TEST 3")  # Edge Cases
-print("Pass" if (0 == sqrt(None)) else "Fail")
+print("Pass" if (-1 == sqrt(None)) else "Fail")
 print("Pass" if (0 == sqrt(0.1)) else "Fail")
-print("Pass" if (0 == sqrt(-10)) else "Fail")
+print("Pass" if (-1 == sqrt(-10)) else "Fail")
+print("Pass" if (9998 == sqrt(99960004)) else "Fail")

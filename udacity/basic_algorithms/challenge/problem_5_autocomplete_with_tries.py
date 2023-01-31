@@ -62,16 +62,6 @@ class Trie:
         return current_node
 
 
-trie = Trie()
-wordList = [
-    "ant", "anthology", "antagonist", "antonym",
-    "fun", "function", "factory",
-    "trie", "trigger", "trigonometry", "tripod"
-]
-for word in wordList:
-    trie.insert(word)
-
-
 def f(prefix):
     if prefix != '':
         prefix_node = trie.find(prefix)
@@ -82,6 +72,16 @@ def f(prefix):
     else:
         print('')
 
+
+print("Test 1")
+trie = Trie()
+wordList = [
+    "ant", "anthology", "antagonist", "antonym",
+    "fun", "function", "factory",
+    "trie", "trigger", "trigonometry", "tripod"
+]
+for word in wordList:
+    trie.insert(word)
 
 # Tests
 
@@ -113,4 +113,60 @@ interact(f, prefix='tr')
 
 
 interact(f, prefix='')  # Nothing happens
-interact(f, prefix='asdasd') # asdasd not found
+interact(f, prefix='asdasd')  # asdasd not found
+
+print("Test 2")
+trie = Trie()
+wordList = []
+for word in wordList:
+    trie.insert(word)
+
+interact(f, prefix='a')
+# Nothing
+
+interact(f, prefix='fa')
+# Nothing
+
+interact(f, prefix='')
+# Nothing
+
+
+print("Test 3")
+trie = Trie()
+wordList = [
+    "batata", "banana", "beringela", "cachorro",
+    "cacho", "cachoeira", "canil",
+    "maconha", "magrelo", "milho", "mordida",
+    "diamante", "dia"
+]
+for word in wordList:
+    trie.insert(word)
+
+# Tests
+
+interact(f, prefix='b')
+# atata
+# anana
+# eringela
+
+interact(f, prefix='ba')
+# atata
+# anana
+
+interact(f, prefix='m')
+# atata
+# anana
+
+
+interact(f, prefix='c')
+# atata
+# anana
+
+
+interact(f, prefix='mo')
+# atata
+# anana
+
+interact(f, prefix='diam')
+# atata
+# anana
