@@ -1,4 +1,4 @@
-# Newton-Raphson Method
+# Fractional exponent
 
 def sqrt(input: int):
     """
