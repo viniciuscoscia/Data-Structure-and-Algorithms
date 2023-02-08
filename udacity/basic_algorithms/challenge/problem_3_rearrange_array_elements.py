@@ -35,9 +35,12 @@ def rearrange_digits(input_list: list):
     for index in range((len(input_list) // 2) - 1, -1, -1):
         heapify(input_list, input_size, index)
 
+    return find_values(input_list, input_size)
+
+
+def find_values(input_list, input_size):
     first_value = 0
     second_value = 0
-
     for index in range(input_size - 1, -1, -1):
         if index % 2 == 1:
             first_value = first_value * 10 + input_list[0]
@@ -47,7 +50,7 @@ def rearrange_digits(input_list: list):
         input_list[index], input_list[0] = input_list[0], input_list[index]  # swap
         heapify(input_list, index, 0)
 
-    return [first_value, second_value]
+    return first_value, second_value
 
 
 def test_function(input, expected_output):
