@@ -42,4 +42,7 @@ Router.split_path:
 The solution and space/time complexities for this problem are the same from problem 5,
 the difference is that when using the "add_handler" or "lookup", we have a call for the "split_path" method, and
 instead of having an "enf of word" flag, each node may or not hold a handler, which is the response for the input
-path
+path.
+The "Router.add_handler" is the insertion method for our problem, it splits the string path separated by slashes into a list of strings.
+With this list, we make the same operation as problem 5, iterate through Trie nodes, adding new nodes when needed and then
+adding the handler to the last node.
