@@ -25,9 +25,10 @@ Router.add_handler:
 
 Router.lookup:
     Time Complexity == O(n):
-        As we need using the Router.split_path method, then it is O(n).
-    Space Complexity == O(n)
-        As we need using the Router.split_path method, then it is O(n).
+        As we need using the Router.split_path method, then it is O(n), 
+    Space Complexity == O(m)
+        As we need using the Router.split_path method, then it is O(m), where "m" is the path as string.
+        The bigger the quantity of paths in this string, the more space is required.
 
 Router.split_path:
     Time Complexity == O(n):
@@ -37,3 +38,8 @@ Router.split_path:
     Space Complexity == O(n)
         As we add new nodes to a list and then filter, we need two new lists in total.
         It is O(n + m), then, O(n)
+
+The solution and space/time complexities for this problem are the same from problem 5,
+the difference is that when using the "add_handler" or "lookup", we have a call for the "split_path" method, and
+instead of having an "enf of word" flag, each node may or not hold a handler, which is the response for the input
+path
