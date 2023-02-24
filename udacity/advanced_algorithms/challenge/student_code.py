@@ -1,3 +1,7 @@
+# https://www.youtube.com/watch?v=s29WpBi2exw
+# https://www.educative.io/answers/what-is-the-a-star-algorithm
+# https://www.pythonpool.com/a-star-algorithm-python/
+
 import heapq
 
 
