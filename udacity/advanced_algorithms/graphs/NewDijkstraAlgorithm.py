@@ -58,7 +58,7 @@ def dijkstra(graph: Graph, start_node: GraphNode, end_node: GraphNode):
         # stored distance, update the distance_dict
         for edge in smallest_node.edges:
             if edge.node in distance_dict:
-                new_distance = distance + edge.distance
+                new_distance = distance + edge.calculate_distance_between_points
                 if distance_dict[edge.node] > new_distance:
                     distance_dict[edge.node] = new_distance
 
