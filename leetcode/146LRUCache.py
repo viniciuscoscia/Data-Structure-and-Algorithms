@@ -193,3 +193,151 @@ lru_cache.get(2)
 lru_cache.get(3)
 lru_cache.get(4)
 lru_cache.get(5)
+
+# Claude Solution
+# Added sentinel nodes in the doubly linked list:
+#
+# Eliminates many edge cases
+# Simplifies the code by removing special cases for head/tail
+# Makes operations more uniform and less error-prone
+#
+#
+# Improved code organization and separation of concerns:
+#
+# Split list operations into clear, single-purpose methods
+# Removed redundant state tracking
+# Better encapsulation of internal operations
+#
+#
+# Added type hints and documentation:
+#
+# Comprehensive docstrings explaining purpose and behavior
+# Type hints for better code maintainability
+# Clear parameter and return value documentation
+#
+#
+# Simplified the node movement logic:
+#
+# Removed complex conditional branches
+# Made operations more atomic and easier to understand
+# Eliminated redundant checks
+#
+#
+# Added error handling:
+#
+# Validates capacity in constructor
+# More robust handling of edge cases
+#
+#
+# Improved variable naming:
+#
+# More descriptive names (e.g., prev instead of previous)
+# Consistent naming conventions
+# Clear abbreviations (e.g., dll for doubly linked list)
+#
+#
+# Memory management improvements:
+#
+# Better cleanup of references when removing nodes
+# Clearer ownership of nodes between cache and list
+class Node:
+    """A node in the doubly linked list containing key-value pairs."""
+
+    def __init__(self, key: int, value: int):
+        self.key = key
+        self.value = value
+        self.next: Optional[Node] = None
+        self.prev: Optional[Node] = None
+
+
+class DoubleLinkedList:
+    """A doubly linked list implementation for the LRU cache."""
+
+    def __init__(self):
+        # Use sentinel nodes to simplify edge cases
+        self.head = Node(0, 0)  # Sentinel head
+        self.tail = Node(0, 0)  # Sentinel tail
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        self.size = 0
+
+    def add_to_front(self, node: Node) -> None:
+        """Add a node right after the head sentinel."""
+        node.prev = self.head
+        node.next = self.head.next
+        self.head.next.prev = node
+        self.head.next = node
+        self.size += 1
+
+    def remove_node(self, node: Node) -> None:
+        """Remove a node from the linked list."""
+        prev_node = node.prev
+        next_node = node.next
+        if prev_node and next_node:
+            prev_node.next = next_node
+            next_node.prev = prev_node
+        self.size -= 1
+
+    def remove_last(self) -> Optional[Node]:
+        """Remove and return the last node before the tail sentinel."""
+        if self.size == 0:
+            return None
+        last = self.tail.prev
+        if last:
+            self.remove_node(last)
+            return last
+        return None
+
+
+class LRUCache:
+    """
+    A Least Recently Used (LRU) cache implementation using a hash map and doubly linked list.
+
+    The hash map provides O(1) lookup while the doubly linked list maintains the order
+    of elements based on their access time.
+    """
+
+    def __init__(self, capacity: int):
+        """Initialize LRU cache with given capacity."""
+        if capacity <= 0:
+            raise ValueError("Capacity must be positive")
+        self.capacity = capacity
+        self.cache = {}  # Hash map for O(1) lookup
+        self.dll = DoubleLinkedList()
+
+    def _move_to_front(self, node: Node) -> None:
+        """Move an existing node to the front of the list."""
+        self.dll.remove_node(node)
+        self.dll.add_to_front(node)
+
+    def get(self, key: int) -> int:
+        """
+        Retrieve value by key and move it to front (most recently used position).
+        Returns -1 if key doesn't exist.
+        """
+        if key not in self.cache:
+            return -1
+
+        node = self.cache[key]
+        self._move_to_front(node)
+        return node.value
+
+    def put(self, key: int, value: int) -> None:
+        """
+        Insert or update key-value pair. If key exists, update value and move to front.
+        If cache is full, remove least recently used item before inserting new one.
+        """
+        if key in self.cache:
+            node = self.cache[key]
+            node.value = value
+            self._move_to_front(node)
+            return
+
+        new_node = Node(key, value)
+        self.cache[key] = new_node
+        self.dll.add_to_front(new_node)
+
+        if len(self.cache) > self.capacity:
+            last_node = self.dll.remove_last()
+            if last_node:
+                del self.cache[last_node.key]
