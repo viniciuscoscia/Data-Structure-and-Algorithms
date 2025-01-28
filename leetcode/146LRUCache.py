@@ -8,15 +8,25 @@ class LRUCache:
         self.capacity = capacity
 
     def get(self, key: int) -> int:
+        print("Get: " + str(key))
+
         if key not in self.lruDict:
+            print("Get returns -1")
+            print("_________________")
             return -1
 
         node = self.lruDict[key]
         self.linkedList.move_node_to_head(node)
 
+        print("Get returns " + str(node.value))
+
+        self.print_all()
+
         return node.value
 
     def put(self, key: int, value: int) -> None:
+        print("Put: " + str(key))
+
         node = Node(key, value)
         if key in self.lruDict:
             node = self.lruDict[key]
@@ -27,6 +37,27 @@ class LRUCache:
             if removed_node:
                 self.lruDict.pop(removed_node.key)
             self.lruDict[key] = node
+
+        self.print_all()
+
+
+    def print_all(self):
+        print("Head = Key: ", end='')
+        print(str(self.linkedList.headNode.key) + " Value: ", end='')
+        print(self.linkedList.headNode.value)
+
+        print("Tail = Key: ", end='')
+        print(str(self.linkedList.tailNode.key) + " Value: ", end='')
+        print(self.linkedList.tailNode.value)
+
+        node = self.linkedList.headNode
+        for i in range(self.linkedList.elements):
+            print("[" + str(node.key) + ", " + str(node.value) + "] ", end='', sep=' ')
+            node = node.next
+
+        print("")
+        print("_________________")
+
 
 
 class Node:
@@ -45,14 +76,27 @@ class DoubleLinkedList:
         self.elements = 0
 
     def move_node_to_head(self, node: Node):
+        if self.headNode == node or self.elements < 2:
+            return
+
         old_head = self.headNode
         self.headNode = node
 
+        if self.headNode == self.tailNode:
+            self.tailNode = self.tailNode.previous
+            self.tailNode.next = self.headNode
+
+        if self.tailNode.previous == self.headNode:
+            self.tailNode.previous = self.headNode.previous
+
         old_head.previous = self.headNode
+        if old_head.next == self.headNode:
+            old_head.next = self.headNode.next
+
+        self.headNode.previous = self.tailNode
         self.headNode.next = old_head
 
-        if node == self.tailNode:
-            self.tailNode = node.previous
+        self.tailNode.next = self.headNode
 
     '''
     Returns Last Node Tail if limit is reached
@@ -89,10 +133,18 @@ class DoubleLinkedList:
         return self.capacity == self.elements
 
 
-lRUCache = LRUCache(2)
-lRUCache.put(2, 1)
-lRUCache.put(2, 2)
-lRUCache.get(2)
-lRUCache.put(1, 1)
-lRUCache.put(4, 1)
-lRUCache.get(2)
+lru_cache = LRUCache(3)
+lru_cache.put(1,1)
+lru_cache.put(2,2)
+lru_cache.put(3,3)
+lru_cache.put(4,4)
+lru_cache.get(4)
+lru_cache.get(3)
+lru_cache.get(2)
+lru_cache.get(1)
+lru_cache.put(5,5)
+lru_cache.get(1)
+lru_cache.get(2)
+lru_cache.get(3)
+lru_cache.get(4)
+lru_cache.get(5)
