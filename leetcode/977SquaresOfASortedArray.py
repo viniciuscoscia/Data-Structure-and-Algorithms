@@ -6,7 +6,7 @@ class Solution:
         right_pointer = len(nums) - 1
         left_pointer = 0
         index = 0
-        result = []
+        result = [None] * len(nums)
 
         while right_pointer > left_pointer:
             left_number = abs(nums[left_pointer])
@@ -19,6 +19,6 @@ class Solution:
                 result[index] = right_number * right_number
                 right_pointer += 1
 
-            index += 1
+            index -= 1
 
         return result
